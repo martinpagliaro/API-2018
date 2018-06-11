@@ -1,24 +1,3 @@
-UsuarioView.java
-
-P
-Tipo
-Java
-Tamaño
-1 KB (1.050 bytes)
-Espacio usado
-1 KB (1.050 bytes)
-Ubicación
-controlador
-Propietario
-yo
-Modificado
-8 jun. 2018 por mí
-Abierto
-16:55 por mí
-Creado el
-8 jun. 2018 con Google Drive Web
-Añadir descripción
-Los lectores pueden descargar
 package controlador;
 
 import java.util.Date;
