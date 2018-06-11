@@ -1,28 +1,48 @@
 package modelo;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Date;
+
+import controlador.UsuarioView;
+import persistencia.AdmPersistenciaUsuario;
 
 public abstract class Usuario {
+	protected String nombreDeUsuario;
 	protected int idUsuario;
-	protected String nombre;
-	protected Date fechaNac;
-	protected String mail;
-	protected Password password;
-	protected int idRole;
-	protected boolean estadoUsuario; /*Estado del usuario*/
-		
-	public Usuario(int idUsuario, String nombre, Date fechaNac, String mail, Password password, int idRole,
-			boolean estadoUsuario) {
+	//protected String nombre;
+	//protected LocalDateTime fechaNac;
+	//protected String mail;
+	protected String password;
+	//protected int idRole;
+	protected boolean estadoUsuario; /*Estado del usuario (Activo/Desactivado)*/
+	protected Date ultimaModificacion; /*la ultima modificación no se persiste*/
+	protected Date fechaCreacion;
+	protected boolean admin; //1: Admin / 0: Usuario (Participante)
+	
+	/*Contructor para la BD*/	
+	public Usuario(String nombreDeUsuario, String password, Date fechaCreacion, boolean estadoUsuario) {
 		super();
-		this.idUsuario = idUsuario;
-		this.nombre = nombre;
-		this.fechaNac = fechaNac;
-		this.mail = mail;
+		this.nombreDeUsuario = nombreDeUsuario;
 		this.password = password;
-		this.idRole = idRole;
 		this.estadoUsuario = estadoUsuario;
+		this.ultimaModificacion = Calendar.getInstance().getTime();
+		this.fechaCreacion = fechaCreacion;
 	}
-
+	
+	/*Constructor de un usuario nuevo*/
+	public Usuario(String nombreDeUsuario, String passwordString) {
+		super();
+		this.nombreDeUsuario = nombreDeUsuario;
+		this.password = passwordString;
+		this.estadoUsuario = true;
+		this.ultimaModificacion = Calendar.getInstance().getTime();
+		this.fechaCreacion = Calendar.getInstance().getTime();
+	}
+	
+	public String getNombreDeUsuario() {
+		return nombreDeUsuario;
+	}
 	public boolean getEstadoUsuario() {
 		return estadoUsuario;
 	}
@@ -30,11 +50,22 @@ public abstract class Usuario {
 	public void setEstadoUsuario(boolean estadoUsuario) {
 		this.estadoUsuario = estadoUsuario;
 	}
-	
-	public String getNombre() {
-		return nombre;
+		
+	public String getPassword(){
+		return password;
 	}
 	
+	public Date getFechaCreacion() {
+		return fechaCreacion;
+	}
+	
+	public boolean passwordCorrecta(String passwordString) {
+		return (this.password.equals(passwordString));
+	}
+	
+	
+	
+	/*
 	public boolean passwordCorrecta (String password) {
 		return this.password.passwordCorrecta(password);
 	}
@@ -54,29 +85,28 @@ public abstract class Usuario {
 	public static int setCaducidadPass(String caducidad) {
 		return Password.setCaducidad(caducidad);
 	}
+	*/
 	
-	public Date getFechaNac() {
-		return fechaNac;
+	public int getIdUsuario() {
+		return idUsuario;
 	}
 
-	public void setFechaNac(Date fechaNac) {
-		this.fechaNac = fechaNac;
+	public void setIdUsuario(int idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 
-	public String getMail() {
-		return mail;
-	}
-
-	public void setMail(String mail) {
-		this.mail = mail;
+	public boolean esUsuario(String nombreDeUsuario){
+		return this.nombreDeUsuario.equals(nombreDeUsuario);
 	}
 	
-	public boolean esUsuario(int idUsuario){
-		return this.idUsuario == idUsuario;
+	public abstract UsuarioView getUsuarioView();
+	
+	static public int updateUsuarioDB(Usuario u) {
+		return AdmPersistenciaUsuario.getInstancia().updateUsuario(u);
 	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	
+	static public Usuario buscarUsuarioDB(String nombreDeUsuario) {
+		return AdmPersistenciaUsuario.getInstancia().buscarUsuario(nombreDeUsuario);
 	}
 	
 }
