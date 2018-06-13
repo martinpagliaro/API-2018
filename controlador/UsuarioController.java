@@ -172,4 +172,12 @@ public class UsuarioController {
 		return 1;
 	}
 	
+		public UsuarioView mostrarUsuario(String nombreDeUsuario){
+		Participante p = (Participante) buscarUsuario(nombreDeUsuario);
+		if (p != null){	
+			return p.crearVista();
+		}
+		return null;
+	}
+	
 }
