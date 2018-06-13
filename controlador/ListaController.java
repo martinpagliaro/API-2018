@@ -19,6 +19,10 @@ public class ListaController {
 		return ListaController.instancia;
 	}
 	
+	private ListaController(){
+		listas = new ArrayList<Lista>();
+	}
+	
 	public Lista buscarLista(String nombreLista){
 		for (int i=0;i<listas.size();i++){
 			Lista l = listas.get(i);
@@ -27,7 +31,8 @@ public class ListaController {
 		}
 		return null;
 	}
-		
+	
+	
 	/*Alta de lista*/
 	public int altaLista (Usuario administrador, String nombreLista, String nombreAgasajado,
 			Date fechaNacAgasajado, String mailAgasajado, ArrayList<Participante> participantes, float montoTotal,
