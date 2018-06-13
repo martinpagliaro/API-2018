@@ -75,4 +75,9 @@ public class Participante extends Usuario{
 		this.montoPago = montoPago;
 	}
 	
+	public UsuarioView crearVista() {
+		UsuarioView uv = new UsuarioView(nombre, fechaNac, mail, nombreDeUsuario, estadoUsuario);
+		return uv;
+	}
+	
 }
