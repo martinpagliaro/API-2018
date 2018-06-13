@@ -13,7 +13,6 @@ import java.util.Locale;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -23,11 +22,9 @@ import controlador.UsuarioController;
 import modelo.Participante;
 import modelo.Usuario;
 
-import javax.swing.DefaultListModel;
-
 public class VistaAltaLista extends JFrame {
 	
-private static final long serialVersionUID = -3173593118178927673L;
+	private static final long serialVersionUID = -3173593118178927673L;
 	
 	private JPanel contentPane;
 	private JTextField textNombreLista;
@@ -37,25 +34,7 @@ private static final long serialVersionUID = -3173593118178927673L;
 	private JTextField textMontoTotal;
 	private JTextField textFechaInicio;
 	private JTextField textFechaFin;
-	//private ArrayList<String> usuarios;
-	//private ArrayList<String> participantes;
 	static private VistaAltaLista instancia;
-	
-	
-	//test
-	public static void main(String[] args) 
-	{
-		VistaAltaLista inst = new VistaAltaLista();
-		inst.setVisible(true);
-	}
-	
-	public VistaAltaLista()
-	{
-		initGUI();
-	}
-	//
-	
-
 	
 	static public VistaAltaLista getInstancia() {
 		if (instancia == null) {
@@ -64,18 +43,13 @@ private static final long serialVersionUID = -3173593118178927673L;
 		return instancia;
 	}
 	
-	
-	//Cambiar el nombre de nuevo a VistaAltaLista y sacar el void
-	public void initGUI() {
-		
-		//usuarios.add("Martin");
-		//usuarios.add("Lucas");
+	public  VistaAltaLista() {
 		
 		setType(Type.UTILITY);
 		setResizable(false);
 		setTitle("Crear Lista");
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 465, 400);
+		setBounds(100, 100, 465, 255);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -108,18 +82,6 @@ private static final long serialVersionUID = -3173593118178927673L;
 		JLabel lblFechaFin = new JLabel("Fecha fin");
 		lblFechaFin.setBounds(10, 161, 65, 14);
 		contentPane.add(lblFechaFin);
-		
-		JLabel lblParticipantes = new JLabel("Participantes");
-		lblParticipantes.setBounds(10, 186, 65, 14);
-		contentPane.add(lblParticipantes);
-		
-		JList listUsuarios = new JList();
-		listUsuarios.setBounds(154, 185, 84, 141);
-		contentPane.add(listUsuarios);
-		
-		JList listParticipantes = new JList();
-		listParticipantes.setBounds(347, 185, 84, 141);
-		contentPane.add(listParticipantes);
 		
 		textNombreLista = new JTextField();
 		textNombreLista.setBounds(154, 8, 250, 20);
@@ -157,7 +119,7 @@ private static final long serialVersionUID = -3173593118178927673L;
 		textFechaFin.setColumns(10);
 		
 		JLabel labelResultado = new JLabel("");
-		labelResultado.setBounds(10, 170, 161, 18);
+		labelResultado.setBounds(197, 204, 161, 18);
 		contentPane.add(labelResultado);
 		
 		JButton btnCrearLista = new JButton("Crear Lista");
@@ -186,6 +148,14 @@ private static final long serialVersionUID = -3173593118178927673L;
 				int error = ListaController.getInstancia().altaLista(administrador, nombreLista, nombreAgasajado, fechaNacAgasajado, mailAgasajado, participantes, montoTotal, montoPorParticipante, montoRecaudado, fechaInicio, fechaFin, estadoLista);
 				switch (error) {
 					case 0:
+						labelResultado.setText("Lista creada");
+						textNombreLista.setText("");
+						textNombreAgasajado.setText("");
+						textFechaNacAgasajado.setText("");
+						textMailAgasajado.setText("");
+						textFechaInicio.setText("");
+						textFechaFin.setText("");
+						textMontoTotal.setText("");
 						VistaAltaLista.getInstancia().setVisible(false);
 						break;
 					case 1:
@@ -195,53 +165,8 @@ private static final long serialVersionUID = -3173593118178927673L;
 				}
 			}
 		});
-		btnCrearLista.setBounds(10, 337, 161, 23);
+		btnCrearLista.setBounds(10, 199, 161, 23);
 		contentPane.add(btnCrearLista);
-
-		/*Lista todos los usuarios activos*/
-		JButton btnListarUsuarios = new JButton("Listar");
-		btnListarUsuarios.setBounds(10, 211, 89, 23);
-		contentPane.add(btnListarUsuarios);
-		btnListarUsuarios.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				DefaultListModel dml = new DefaultListModel();
-				ArrayList<Usuario> aux = UsuarioController.getInstancia().buscarUsuariosActivos(); 
-				for (int i = 0; i<aux.size(); i++){
-					dml.addElement(aux.get(i).getNombreDeUsuario());
-				}
-				listUsuarios.setModel(dml);
-			}
-		});
-		
-		JButton btnQuitarParticipante = new JButton("Quitar");
-		btnQuitarParticipante.setBounds(248, 249, 89, 23);
-		contentPane.add(btnQuitarParticipante);
-		btnQuitarParticipante.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				DefaultListModel model = (DefaultListModel) listParticipantes.getModel();
-				int selectedIndex = listParticipantes.getSelectedIndex();
-				if (selectedIndex != -1) {
-				    model.remove(selectedIndex);
-				}		
-			}	
-		});
-		
-		//Terminar
-		JButton btnAgregarParticipante = new JButton("Agregar");
-		btnAgregarParticipante.setBounds(248, 211, 89, 23);
-		contentPane.add(btnAgregarParticipante);
-		btnAgregarParticipante.addActionListener(new ActionListener() {
-			DefaultListModel dml2 = new DefaultListModel();
-			public void actionPerformed(ActionEvent arg0) {
-				String seleccionado = (String) listUsuarios.getSelectedValue();
-				int indice = listUsuarios.getSelectedIndex();
-				dml2.addElement(seleccionado); 
-				listParticipantes.setModel(dml2);		
-			}
-		});
-		
-	
-		
 
 	}
 }
