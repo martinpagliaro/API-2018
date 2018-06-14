@@ -32,7 +32,6 @@ public class VistaAltaLista extends JFrame {
 	private JTextField textFechaNacAgasajado;
 	private JTextField textMailAgasajado;
 	private JTextField textMontoTotal;
-	private JTextField textFechaInicio;
 	private JTextField textFechaFin;
 	static private VistaAltaLista instancia;
 	
@@ -49,7 +48,7 @@ public class VistaAltaLista extends JFrame {
 		setResizable(false);
 		setTitle("Crear Lista");
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 465, 255);
+		setBounds(100, 100, 465, 230);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -75,12 +74,8 @@ public class VistaAltaLista extends JFrame {
 		lblMontoTotal.setBounds(10, 111, 65, 14);
 		contentPane.add(lblMontoTotal);
 		
-		JLabel lblFechaInicio = new JLabel("Fecha inicio");
-		lblFechaInicio.setBounds(10, 136, 65, 14);
-		contentPane.add(lblFechaInicio);
-		
 		JLabel lblFechaFin = new JLabel("Fecha fin");
-		lblFechaFin.setBounds(10, 161, 65, 14);
+		lblFechaFin.setBounds(10, 136, 65, 14);
 		contentPane.add(lblFechaFin);
 		
 		textNombreLista = new JTextField();
@@ -108,18 +103,13 @@ public class VistaAltaLista extends JFrame {
 		contentPane.add(textMontoTotal);
 		textMontoTotal.setColumns(10);
 		
-		textFechaInicio = new JTextField();
-		textFechaInicio.setBounds(154, 133, 250, 20);
-		contentPane.add(textFechaInicio);
-		textFechaInicio.setColumns(10);
-		
 		textFechaFin = new JTextField();
-		textFechaFin.setBounds(154, 158, 250, 20);
+		textFechaFin.setBounds(154, 133, 250, 20);
 		contentPane.add(textFechaFin);
 		textFechaFin.setColumns(10);
 		
 		JLabel labelResultado = new JLabel("");
-		labelResultado.setBounds(197, 204, 161, 18);
+		labelResultado.setBounds(211, 170, 161, 18);
 		contentPane.add(labelResultado);
 		
 		JButton btnCrearLista = new JButton("Crear Lista");
@@ -129,11 +119,10 @@ public class VistaAltaLista extends JFrame {
 				String nombreLista = textNombreLista.getText();
 				String nombreAgasajado = textNombreAgasajado.getText();
 				Date fechaNacAgasajado = null;
-				Date fechaFin = null;
+				Date fechaFin = new Date();
 				Date fechaInicio = null;
 				try {
 					fechaNacAgasajado = format.parse(textFechaNacAgasajado.getText());
-					fechaInicio = format.parse(textFechaInicio.getText());
 					fechaFin = format.parse(textFechaFin.getText());
 				} catch (ParseException e) {
 					e.printStackTrace();
@@ -153,7 +142,6 @@ public class VistaAltaLista extends JFrame {
 						textNombreAgasajado.setText("");
 						textFechaNacAgasajado.setText("");
 						textMailAgasajado.setText("");
-						textFechaInicio.setText("");
 						textFechaFin.setText("");
 						textMontoTotal.setText("");
 						VistaAltaLista.getInstancia().setVisible(false);
@@ -165,7 +153,7 @@ public class VistaAltaLista extends JFrame {
 				}
 			}
 		});
-		btnCrearLista.setBounds(10, 199, 161, 23);
+		btnCrearLista.setBounds(10, 170, 161, 23);
 		contentPane.add(btnCrearLista);
 
 	}
