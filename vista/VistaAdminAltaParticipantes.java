@@ -94,12 +94,10 @@ public class VistaAdminAltaParticipantes extends JFrame {
 			}	
 		});
 		
-		//Terminar
 		JButton btnAgregarParticipante = new JButton("Agregar");
 		btnAgregarParticipante.setBounds(213, 85, 89, 23);
 		contentPane.add(btnAgregarParticipante);
 		btnAgregarParticipante.addActionListener(new ActionListener() {
-			//
 			public void actionPerformed(ActionEvent arg0) {
 				String seleccionado = (String) listUsuarios.getSelectedValue();
 				int indice = listUsuarios.getSelectedIndex();
