@@ -32,6 +32,20 @@ public class ListaController {
 		return null;
 	}
 	
+	/*Busca todas las listas activas*/
+	public ArrayList<Lista> buscarParticipanteEnLista(String nombreUsuario){
+		ArrayList<Lista> aux = new ArrayList<>();
+		for (int i=0; i<listas.size(); i++){
+			ArrayList<Participante> p = listas.get(i).getParticipantes();
+			for (int y=0; y<p.size(); y++){
+				if (p.get(y).getNombreDeUsuario().equals(nombreUsuario)){
+					aux.add(listas.get(i));
+				}
+			}
+		}
+		return aux;
+	}
+	
 	
 	/*Alta de lista*/
 	public int altaLista (Usuario administrador, String nombreLista, String nombreAgasajado,
@@ -65,7 +79,6 @@ public class ListaController {
 			l.setFechaFin(fechaFin);
 			l.setMailAgasajado(mailAgasajado);
 			l.setNombreAgasajado(nombreAgasajado);
-			l.setNombreLista(nombreLista);
 			l.setFechaNacAgasajado(fechaNacAgasajado);
 			l.setMontoTotal(montoTotal);
 			return 0;
