@@ -31,7 +31,7 @@ public class Lista {
 	public Participante buscarParticipante(String nombreUsuario) {
 		for (int i=0;i<participantes.size();i++){
 			Participante p = participantes.get(i);
-			if (p.esUsuario(nombreUsuario))
+			if (p.esParticipante(nombreUsuario))
 				return p;
 		}
 		return null;
