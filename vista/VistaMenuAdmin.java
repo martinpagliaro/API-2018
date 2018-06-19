@@ -141,6 +141,66 @@ public class VistaMenuAdmin extends JFrame {
 		});
 		mnLista.add(mntmAgregarParticipantes);
 		
+		JMenuItem mntmQuitarParticipante = new JMenuItem("Quitar participante");
+		mntmQuitarParticipante.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VistaUsuarioBajaLista vmu = new VistaUsuarioBajaLista();
+				vmu.setVisible(true);
+			}
+		});
+		mnLista.add(mntmQuitarParticipante);
+		
+	}
+	
+	/*
+	private void cargarDatosUsuario(){
+		UsuarioView vul = UsuarioController.getInstancia().getLoggedUserView();
+		lblUsuarioLogueado.setText(vul.getNombre());
+	}
+	*/
+}
+
+		
+		JMenuItem mntmAltaLista = new JMenuItem("Crear lista");
+		mnLista.add(mntmAltaLista);
+		mntmAltaLista.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VistaAltaLista vmu = new VistaAltaLista();
+				vmu.setVisible(true);
+			}
+		});
+		mnLista.add(mntmAltaLista);
+		
+		JMenuItem mntmModificarLista = new JMenuItem("Modificar lista");
+		mnLista.add(mntmModificarLista);
+		mntmModificarLista.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VistaModificarLista vmu = new VistaModificarLista();
+				vmu.setVisible(true);
+			}
+		});
+		mnLista.add(mntmModificarLista);
+		
+		JMenuItem mntmBajaLista = new JMenuItem("Eliminar lista");
+		mnLista.add(mntmBajaLista);
+		mntmBajaLista.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VistaBajaLista vmu = new VistaBajaLista();
+				vmu.setVisible(true);
+			}
+		});
+		mnLista.add(mntmBajaLista);
+		
+		JMenuItem mntmAgregarParticipantes = new JMenuItem("Agregar participantes");
+		mnLista.add(mntmAgregarParticipantes);
+		mntmAgregarParticipantes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VistaAdminAltaParticipantes vmu = new VistaAdminAltaParticipantes();
+				vmu.setVisible(true);
+			}
+		});
+		mnLista.add(mntmAgregarParticipantes);
+		
 	}
 	
 	/*
