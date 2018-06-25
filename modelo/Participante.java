@@ -56,8 +56,8 @@ public class Participante extends Usuario{
 		return (new UsuarioView(this.nombre, this.fechaNac, this.mail, this.nombreDeUsuario,this.estadoUsuario));
 	}
 	
-	public Participante(String nombre, String mail, Date fechaNac,
-			String nombreDeUsuario, String passwordString) {
+	public Participante(String nombreDeUsuario, String nombre, Date fechaNac,
+			String mail, String passwordString) {
 		super(nombreDeUsuario, passwordString);
 		this.nombre = nombre;
 		this.mail = mail;
@@ -74,10 +74,14 @@ public class Participante extends Usuario{
 		this.pagado = pagado;
 		this.montoPago = montoPago;
 	}
-	
+
 	public UsuarioView crearVista() {
 		UsuarioView uv = new UsuarioView(nombre, fechaNac, mail, nombreDeUsuario, estadoUsuario);
 		return uv;
+	}
+	
+	public boolean esParticipante (String nombreDeUsuario){
+		return this.nombreDeUsuario.equals(nombreDeUsuario);
 	}
 	
 }
