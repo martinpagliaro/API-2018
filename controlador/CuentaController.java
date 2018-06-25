@@ -7,12 +7,12 @@ import modelo.Cuenta;
 
 public class CuentaController {
 	
-	private static ListaController instancia;
+	private static CuentaController instancia;
 	private ArrayList<Cuenta> cuentas;
 	
-	static public ListaController getInstancia() {
+	static public CuentaController getInstancia() {
 		if(CuentaController.instancia == null) {
-			CuentaController.instancia = new ListaController();
+			CuentaController.instancia = new CuentaController();
 		}
 		return CuentaController.instancia;
 	}
