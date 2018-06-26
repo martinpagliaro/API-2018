@@ -84,7 +84,7 @@ public class VistaModificarUsuario extends JFrame{
 						textFechaNac.setText(dateFormatter.format(uv.getFechaNac()));
 						textMail.setVisible(true);
 						textMail.setEnabled(true);
-						textMail.setText(uv.getNombre());
+						textMail.setText(uv.getMail());
 					}else
 					{
 						JOptionPane.showMessageDialog((Component)e.getSource(), "Usuario inexistente");
