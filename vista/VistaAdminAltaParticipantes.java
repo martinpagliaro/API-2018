@@ -100,7 +100,7 @@ public class VistaAdminAltaParticipantes extends JFrame {
 		btnAgregarParticipante.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String seleccionado = (String) listUsuarios.getSelectedValue();
-				int indice = listUsuarios.getSelectedIndex();
+				//int indice = listUsuarios.getSelectedIndex();
 				dml2.addElement(seleccionado); 
 				listParticipantes.setModel(dml2);		
 			}
