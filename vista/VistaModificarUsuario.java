@@ -178,5 +178,4 @@ public class VistaModificarUsuario extends JFrame{
 			e.printStackTrace();
 		}
 	}
-
 }
