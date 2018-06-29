@@ -66,14 +66,16 @@ public class VistaAdminAltaParticipantes extends JFrame {
 		labelResultado.setBounds(176, 242, 255, 18);
 		contentPane.add(labelResultado);
 		
-		/*Lista todos los usuarios activos*/
+		/*Lista todos los usuarios activos, salvo el usuario administrador de la lista*/
 		JButton btnListarUsuarios = new JButton("Listar");
 		btnListarUsuarios.setBounds(10, 51, 89, 23);
 		contentPane.add(btnListarUsuarios);
 		btnListarUsuarios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				Lista listaAux = ListaController.getInstancia().buscarLista(textFieldNombreLista.getText());
+				Usuario admAux = listaAux.getAdministrador();
 				DefaultListModel<String> dml = new DefaultListModel<String>();
-				ArrayList<Usuario> aux = UsuarioController.getInstancia().buscarUsuariosActivos(); 
+				ArrayList<Usuario> aux = UsuarioController.getInstancia().buscarUsuariosActivos(admAux.getNombreDeUsuario()); 
 				for (int i = 0; i<aux.size(); i++){
 					dml.addElement(aux.get(i).getNombreDeUsuario());
 				}
