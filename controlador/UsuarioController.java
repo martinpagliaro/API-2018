@@ -35,12 +35,12 @@ public class UsuarioController {
 		return null;
 	}
 	
-	/*Busca todos los usuarios activos*/
-	public ArrayList<Usuario> buscarUsuariosActivos (){
+	/*Busca todos los usuarios activos y descarta el administrador de la lista*/
+	public ArrayList<Usuario> buscarUsuariosActivos (String nombreAdmin){
 		ArrayList<Usuario> aux = new ArrayList<Usuario>();
 		for (int i=0; i<usuarios.size();i++) {
 			Usuario usr = usuarios.get(i);
-			if (usr.getEstadoUsuario() == true) {
+			if (usr.getEstadoUsuario() == true && !usr.getNombreDeUsuario().equals(nombreAdmin)) {
 				aux.add(usr);
 			}
 		}
