@@ -175,4 +175,13 @@ public class Lista {
 		this.estadoLista = "Cerrada";
 	}
 	
+	public boolean pago(String nombreLista, String nombreUsuario, Date fecha, float monto){
+		Participante p = buscarParticipante(nombreUsuario);
+		if (p != null){
+			p.setPagado(true);
+			p.setMontoPago(monto);
+			return p.crearPago(nombreLista, nombreUsuario, fecha, monto);
+		}
+	}
+
 }
