@@ -84,4 +84,8 @@ public class Participante extends Usuario{
 		return this.nombreDeUsuario.equals(nombreDeUsuario);
 	}
 	
+	public boolean crearPago(String nombreLista, String nombreUsuario, Date fecha, float monto) {
+		return AdmPersistenciaLista.getInstancia().CrearNuevoPago(nombreLista,nombreUsuario,fecha,monto);
+	}
+	
 }
