@@ -94,4 +94,8 @@ public class ListaController {
 		return null;
 	}
 	
+	public boolean NotificarPago(String nombreLista, String nombreUsuario, Date fecha, float monto){
+		return Lista.pago(nombreLista, nombreUsuario, fecha, monto);  
+	}
+	
 }
