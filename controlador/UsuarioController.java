@@ -35,6 +35,7 @@ public class UsuarioController {
 		return null;
 	}
 	
+	
 	/*Busca todos los usuarios activos y descarta el administrador de la lista*/
 	public ArrayList<Usuario> buscarUsuariosActivos (String nombreAdmin){
 		ArrayList<Usuario> aux = new ArrayList<Usuario>();
@@ -69,13 +70,13 @@ public class UsuarioController {
 	
 	
 	/*Modificacion de usuario (Administrador y participante)*/
-	public int modificarUsuario(String nombre, String mail, Date fechaNac){
-		if (usuarioLogueado != null) {
-			Participante u = (Participante)usuarioLogueado;
-			u.setNombre(nombre);
-			u.setMail(mail);
-			u.setFechaNac(fechaNac);
-			Usuario.updateUsuarioDB(usuarioLogueado);
+	public int modificarUsuario(String nombreDeUsuario, String nombre, String mail, Date fechaNac){
+		Participante p = (Participante) buscarUsuario(nombreDeUsuario);
+		if (p != null) {
+			p.setNombre(nombre);
+			p.setMail(mail);
+			p.setFechaNac(fechaNac);
+			//Usuario.updateUsuarioDB(usuarioLogueado);
 			return 0; //Usuario modificado
 		}
 		return 1;
@@ -85,7 +86,7 @@ public class UsuarioController {
 	public boolean bajaUsuario(String nombreUsuario){
 		Usuario usr = buscarUsuario(nombreUsuario);
 		if (usr!=null){
-			usuarios.remove(usr);						
+			usr.setEstadoUsuario(false);					
 			return true;
 		}
 		return false;	
@@ -160,9 +161,9 @@ public class UsuarioController {
 	}
 	*/
 	
-	public int modificarLoggedUser(String nombre, String mail, Date fechaNac) {
+	public int modificarLoggedUser(String nombreDeUsuario, String nombre, String mail, Date fechaNac) {
 		if (usuarioLogueado != null) {
-			Participante u = (Participante)usuarioLogueado;
+			Participante u = (Participante)buscarUsuario(nombreDeUsuario);
 			u.setNombre(nombre);
 			u.setMail(mail);
 			u.setFechaNac(fechaNac);
@@ -171,8 +172,8 @@ public class UsuarioController {
 		}
 		return 1;
 	}
-	
-		public UsuarioView mostrarUsuario(String nombreDeUsuario){
+
+	public UsuarioView mostrarUsuario(String nombreDeUsuario){
 		Participante p = (Participante) buscarUsuario(nombreDeUsuario);
 		if (p != null){	
 			return p.crearVista();
