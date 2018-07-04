@@ -18,7 +18,7 @@ public class Lista {
 	private float montoRecaudado;
 	private Date fechaInicio;
 	private Date fechaFin;
-	private String estadoLista;
+	private String estadoLista; //Abierta, Cerrada
 	
 	public int getIdLista() {
 		return idLista;
@@ -67,7 +67,7 @@ public class Lista {
 		this.montoRecaudado = montoRecaudado;
 		this.fechaInicio = fechaInicio;
 		this.fechaFin = fechaFin;
-		this.estadoLista = estadoLista;
+		this.estadoLista = "Abierta";
 	}
 
 	public Usuario getAdministrador() {
@@ -183,5 +183,5 @@ public class Lista {
 			return p.crearPago(nombreLista, nombreUsuario, fecha, monto);
 		}
 	}
-
+	
 }
