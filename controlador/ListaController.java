@@ -26,7 +26,7 @@ public class ListaController {
 	public Lista buscarLista(String nombreLista){
 		for (int i=0;i<listas.size();i++){
 			Lista l = listas.get(i);
-			if (l.esLista(nombreLista))
+			if (l.esLista(nombreLista) && l.getEstadoLista().equals("Abierta"))
 				return l;
 		}
 		return null;
@@ -65,7 +65,7 @@ public class ListaController {
 	public boolean bajaLista (String nombreLista){
 		Lista l = buscarLista(nombreLista);
 		if (l!=null) {
-			listas.remove(l);
+			l.setEstadoLista("Cerrada");
 			return true;
 		}
 		return false;
