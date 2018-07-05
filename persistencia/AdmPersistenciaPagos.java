@@ -3,12 +3,8 @@ package persistencia;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
-
-import modelo.Administrador;
 import modelo.Usuario;
 import modelo.Participante;
 import modelo.Lista;
@@ -35,7 +31,7 @@ static private AdmPersistenciaPagos instancia;
 							+ "VALUES(?,?,?,?)");
 			//Usuario usuario = AdmPersistenciaUsuario.getInstancia().buscarUsuario(pago.getIdParticipante());
 			
-			Usuario user= AdmPersistenciaUsuario.getInstancia().buscarUsuario(pago.getUsuario().getNombreDeUsuario());
+			Usuario user= AdmPersistenciaUsuario.getInstancia().buscarUsuario(pago.getParticipante().getNombreDeUsuario());
 			Lista lista = AdmPersistenciaListas.getInstancia().buscarLista(pago.getLista().getIdLista());
 			
 			s.setInt(1, user.getIdUsuario());
@@ -62,7 +58,7 @@ static private AdmPersistenciaPagos instancia;
 					"WHERE idUsuario = ? and idLista = ?"
 					);
 			
-			Usuario user= AdmPersistenciaUsuario.getInstancia().buscarUsuario(pago.getUsuario().getNombreDeUsuario());
+			Usuario user= AdmPersistenciaUsuario.getInstancia().buscarUsuario(pago.getParticipante().getNombreDeUsuario());
 			Lista lista = AdmPersistenciaListas.getInstancia().buscarLista(pago.getLista().getIdLista());
 			
 			s.setInt(1, user.getIdUsuario());
