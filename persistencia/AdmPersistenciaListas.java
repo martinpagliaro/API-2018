@@ -53,7 +53,7 @@ public class AdmPersistenciaListas {
 			}
 	}
 	public Lista buscarLista(int idLista) {
-		Usuario u = null;
+		//Usuario u = null;
 		try {
 			Connection con = PoolConnection.getPoolConnection().getConnection();
 			PreparedStatement s = con.prepareStatement("SELECT * FROM Listas WHERE idLista = ?");
