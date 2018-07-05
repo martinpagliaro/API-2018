@@ -4,27 +4,31 @@ import java.util.Date;
 
 public class Pago {
 	
-	private Usuario usuario;
+	private Participante participante;
 	private Lista lista;
 	private Date fechaPago;
 	private float monto;
 	
 	
-	public Pago(Usuario usuario, Lista lista, Date fechaPago, float monto) {
+	public Pago(Participante participante, Lista lista, Date fechaPago, float monto) {
 		super();
-		this.usuario = usuario;
+		this.participante = participante;
 		this.lista = lista;
 		this.fechaPago = fechaPago;
 		this.monto = monto;
 	}
 
-	public Usuario getUsuario() {
-		return usuario;
+
+	public Participante getParticipante() {
+		return participante;
 	}
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
+
+	public void setParticipante(Participante participante) {
+		this.participante = participante;
 	}
+
+
 
 	public Lista getLista() {
 		return lista;
