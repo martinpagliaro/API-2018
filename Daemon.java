@@ -14,6 +14,7 @@ import controlador.PagoController;
 public class Daemon extends Thread{
 	
 	public String horario;
+	private int i = 0;
 	
 	public static void main(String[] args){
 		Daemon daemon = new Daemon();
@@ -21,7 +22,7 @@ public class Daemon extends Thread{
 	}
 	
 	public void run(){
-		//while(true){
+		while(true){
 			/*Pagos*/
 			Calendar calendar = Calendar.getInstance();
 			SimpleDateFormat d = new SimpleDateFormat("HH:mm:ss"); 
@@ -38,13 +39,12 @@ public class Daemon extends Thread{
 				}
 				horario = d.format(next); 
 			}	
-		//}
+		}
 	}
 	
 	/*El archivo tiene que estar en formato csv.
 	 *Valores: nombre de la lista, nombre del usuario, monto y fecha de movimiento*/
 	public void readPago () throws IOException{
-		int i = 0;
 		String fileNamePago = "In/pago.csv";
 		String fileNameLog = "log.txt";
 		String fileNameCopia = "Out/pagoCopia"+i+".csv";
@@ -58,12 +58,14 @@ public class Daemon extends Thread{
 				String[] valores = data.split(",");
 				//System.out.println(data);
 				procesarPagos(valores); 
+				/*Si el archivo de log no existe lo crea*/
 				FileWriter fw = new FileWriter (log, true);
 				PrintWriter pw = new PrintWriter(fw);
 				pw.println("Nombre de lista: " + valores[0] + " - Nombre de participante: " + valores[1] + " - Monto: " + valores[2] + " - Fecha de movimiento: " + valores[3]);
 				pw.close();
 			}
 			inputStream.close();
+			/*Copia el archivo en la carpeta de destino con un nuevo nombre*/
 			Files.copy(pago.toPath(), pagoCopia.toPath());
 			i++;
 			pago.delete();
@@ -71,7 +73,8 @@ public class Daemon extends Thread{
 			System.out.println("No se encontraron archivos de pagos");
 		}
 	}
-
+	
+	/*Se crea el pago y se actualiza el estado de pago y el monto pagado del participante*/
 	public static boolean procesarPagos (String[] pago){
 		if (pago.length == 4){
 			try {
@@ -80,7 +83,7 @@ public class Daemon extends Thread{
 				float monto = Float.valueOf(pago[2]);
 				SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 				java.util.Date fecha = (java.util.Date) formatter.parse(pago[3]);
-				PagoController.getInstancia().NotificarPago(nombreLista, nombreUsuario, fecha, monto);
+				//PagoController.getInstancia().NotificarPago(nombreLista, nombreUsuario, fecha, monto);
 			} catch (ParseException e) {
 				System.out.println("Error en los datos del archivo");
 				e.printStackTrace();
