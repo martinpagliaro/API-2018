@@ -83,7 +83,7 @@ public class Daemon extends Thread{
 				float monto = Float.valueOf(pago[2]);
 				SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 				java.util.Date fecha = (java.util.Date) formatter.parse(pago[3]);
-				//PagoController.getInstancia().NotificarPago(nombreLista, nombreUsuario, fecha, monto);
+				PagoController.getInstancia().NotificarPago(nombreLista, nombreUsuario, fecha, monto);
 			} catch (ParseException e) {
 				System.out.println("Error en los datos del archivo");
 				e.printStackTrace();
