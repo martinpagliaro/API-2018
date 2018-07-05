@@ -1,3 +1,5 @@
+package otros;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -9,12 +11,16 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
+
+import controlador.EmailController;
 import controlador.PagoController;
 
 public class Daemon extends Thread{
 	
-	public String horario;
+	public String horarioPago;
+	public String horarioMail;
 	private int i = 0;
+	private int vencimiento = 5; // 
 	
 	public static void main(String[] args){
 		Daemon daemon = new Daemon();
@@ -25,20 +31,34 @@ public class Daemon extends Thread{
 		while(true){
 			/*Pagos*/
 			Calendar calendar = Calendar.getInstance();
-			SimpleDateFormat d = new SimpleDateFormat("HH:mm:ss"); 
-			Date now = calendar.getTime();
+			SimpleDateFormat dPago = new SimpleDateFormat("HH:mm:ss"); 
+			Date nowPago = calendar.getTime();
 			calendar.add(Calendar.MINUTE, 10);
 			Date next = calendar.getTime();
-			this.horario = d.format(now);
-			if (d.format(now).equalsIgnoreCase(horario)){
+			this.horarioPago = dPago.format(nowPago);
+			/*Mails*/
+			Calendar calendar2 = (Calendar) calendar.clone();
+			SimpleDateFormat dMail = new SimpleDateFormat("dd/MM/yyyy");
+			Date nowMail = calendar2.getTime();
+			calendar2.add(Calendar.DAY_OF_YEAR, 1);
+			Date nextDay =  calendar2.getTime();
+			
+			/*Procesamiento de pagos*/
+			if (dPago.format(nowPago).equals(horarioPago)){
 				try {
 					readPago();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				horario = d.format(next); 
-			}	
+				horarioPago = dPago.format(next); 
+			}
+			/*Envio de mails*/
+			if (dMail.format(nowMail).equals(horarioMail)){
+				avisoDeRegalo();
+				proximoCierre();	
+			}
+			horarioMail = dMail.format(nextDay);
 		}
 	}
 	
@@ -91,6 +111,15 @@ public class Daemon extends Thread{
 		} else
 			System.out.println("Error en la cantidad de columnas informada en el archivo");
 			return false;
+	}
+	
+	public void avisoDeRegalo(Date nowMail){
+		EmailController.getInstancia().avisoDeCierre(nowMail);
+	}
+	
+	public void proximoCierre(Date nowMail){
+		EmailController.getInstancia().proximoCierre(nowMail);
+		
 	}
 
 }
