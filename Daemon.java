@@ -21,7 +21,7 @@ public class Daemon extends Thread{
 	}
 	
 	public void run(){
-		while(true){
+		//while(true){
 			/*Pagos*/
 			Calendar calendar = Calendar.getInstance();
 			SimpleDateFormat d = new SimpleDateFormat("HH:mm:ss"); 
@@ -38,15 +38,16 @@ public class Daemon extends Thread{
 				}
 				horario = d.format(next); 
 			}	
-		}
+		//}
 	}
 	
 	/*El archivo tiene que estar en formato csv.
 	 *Valores: nombre de la lista, nombre del usuario, monto y fecha de movimiento*/
 	public void readPago () throws IOException{
+		int i = 0;
 		String fileNamePago = "In/pago.csv";
 		String fileNameLog = "log.txt";
-		String fileNameCopia = "Out/pagoCopia.csv";
+		String fileNameCopia = "Out/pagoCopia"+i+".csv";
 		File pago = new File(fileNamePago);
 		File log = new File(fileNameLog);
 		File pagoCopia = new File(fileNameCopia);
@@ -64,6 +65,7 @@ public class Daemon extends Thread{
 			}
 			inputStream.close();
 			Files.copy(pago.toPath(), pagoCopia.toPath());
+			i++;
 			pago.delete();
 		} catch (FileNotFoundException e){
 			System.out.println("No se encontraron archivos de pagos");
