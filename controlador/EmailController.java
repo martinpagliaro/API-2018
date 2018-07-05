@@ -4,9 +4,19 @@ import java.util.ArrayList;
 
 import modelo.Lista;
 import modelo.Participante;
-import EmailSender;
+import otros.EmailSender;
+//import otros.EmailSender;
 
 public class EmailController {
+	
+	private static EmailController instancia;
+	
+	static public EmailController getInstancia() {
+		if(EmailController.instancia == null) {
+			EmailController.instancia = new EmailController();
+		}
+		return EmailController.instancia;
+	}
 	
 	public static void inicioDeLista(String nombreLista) {
 		Lista l = ListaController.getInstancia().buscarLista(nombreLista);
@@ -17,6 +27,7 @@ public class EmailController {
 		EmailSender.buildMails(emails, asunto, cuerpo);
 	}
 	
+	/*Corregir*/
 	public void proximoCierre(String nombreLista){
 		Lista l = ListaController.getInstancia().buscarLista(nombreLista);
 		String asunto = "Regalo de cumple para " + l.getNombreAgasajado();
@@ -26,6 +37,7 @@ public class EmailController {
 		EmailSender.buildMails(emails, asunto, cuerpo);
 	}
 	
+	/*Hacer*/
 	public void avisoDeCierre(){
 		
 	}
